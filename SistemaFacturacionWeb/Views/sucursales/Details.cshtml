@@ -1,0 +1,58 @@
+﻿@model SistemaFacturacionWeb.Models.sucursal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>sucursal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreSucursal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreSucursal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DetallesSucursal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DetallesSucursal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DireccionSucursal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DireccionSucursal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefonoSucursal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefonoSucursal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUsers.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdSucursal }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

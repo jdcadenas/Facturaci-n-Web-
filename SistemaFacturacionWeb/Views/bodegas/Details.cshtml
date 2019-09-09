@@ -1,0 +1,34 @@
+﻿@model SistemaFacturacionWeb.Models.bodega
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>bodega</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreBodega)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreBodega)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sucursal.NombreSucursal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sucursal.NombreSucursal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdBodega }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

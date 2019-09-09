@@ -1,0 +1,25 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.proveedor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+    <div>
+        @using (Html.BeginForm())
+        {
+            <p>
+                Ingrese el código de la persona a buscar:
+                @Html.TextBox("Codigo")
+            </p>
+            <p>
+                <input type="submit" value="Buscar" />
+            </p>
+        }
+    </div>

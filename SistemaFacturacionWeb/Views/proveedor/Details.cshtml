@@ -1,0 +1,74 @@
+﻿@model SistemaFacturacionWeb.Models.proveedor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>proveedor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RazonSocialProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RazonSocialProveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RifProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RifProveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefonoProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefonoProveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DireccionProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DireccionProveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DetallesProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DetallesProveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreContactoProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreContactoProveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SitioWebProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SitioWebProveedor)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProveedor }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

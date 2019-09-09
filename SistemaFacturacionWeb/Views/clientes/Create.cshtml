@@ -1,0 +1,104 @@
+﻿@model SistemaFacturacionWeb.Models.cliente
+
+@{
+    ViewBag.Title = "Crear";
+}
+<script type="text/javascript">
+    function validar(e) {
+
+
+
+        tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla == 8) return true; //Tecla de retroceso (para poder borrar)
+        //if (tecla == 44) return true; //Coma ( En este caso para diferenciar los decimales )
+        if (tecla == 48) return true;
+        if (tecla == 49) return true;
+        if (tecla == 50) return true;
+        if (tecla == 51) return true;
+        if (tecla == 52) return true;
+        if (tecla == 53) return true;
+        if (tecla == 54) return true;
+        if (tecla == 55) return true;
+        if (tecla == 56) return true;
+        if (tecla == 57) return true;
+        patron = /1/; //ver nota
+        te = String.fromCharCode(tecla);
+        return patron.test(te);
+    }
+</script>
+
+
+<h2>Crear</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>cliente</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NombreCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreCliente, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CedulaCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="Text" name="CedulaCliente" id="CedulaCliente" value="0000000000" minlength="10" maxlength="10" onKeyPress="return validar(event)" class="form-control" title="Minimo 10 caracteres Numericos y maximo 13 si es RUC"><br>
+                @Html.ValidationMessageFor(model => model.CedulaCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DireccionCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DireccionCliente, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DireccionCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaNacimientoCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" name="FechaNacimientoCliente" id="FechaNacimientoCliente" class="form-control" title="Solo se Permite Formatos de Fecha"  max="2018-01-01" value="2018-01-01"><br>
+                @Html.ValidationMessageFor(model => model.FechaNacimientoCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TelefonoCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="Text" name="TelefonoCliente" id="TelefonoCliente" value="0000000000" minlength="10" maxlength="10" onKeyPress="return validar(event)" class="form-control" title="Numero telefonico Incorrecto"><br>
+                @Html.ValidationMessageFor(model => model.TelefonoCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="email" name="EmailCliente" id="EmailCliente" value="aaa@aaa.com" minlength="1" class="form-control" title="Correo Incorrecto"><br>
+                @Html.ValidationMessageFor(model => model.EmailCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

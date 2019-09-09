@@ -60,6 +60,8 @@ namespace SistemaFacturacionWeb.Models
 
         [Display(Name = "¿Recordar cuenta?")]
         public bool RememberMe { get; set; }
+
+        
     }
 
     public class RegisterViewModel
@@ -79,6 +81,7 @@ namespace SistemaFacturacionWeb.Models
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
+
     }
 
     public class ResetPasswordViewModel

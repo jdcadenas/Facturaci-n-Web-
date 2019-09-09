@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.articulo> 
+
+@{
+    ViewBag.Title = "Buscar";
+}
+
+<h2>Busqueda de Articulos</h2>
+
+<fielset>
+    <legend>Editing Record</legend>
+    <div>
+        <table class="table">
+            <tr>
+
+                <th>@Html.DisplayNameFor(model => model.NombreArticulo)</th>
+                <th></th>
+            </tr>
+            @foreach (var items in Model)
+    {
+
+            <tr>
+                <th>@Html.DisplayFor(modelitems => items.NombreArticulo)</th>
+                <th>
+                    <a href="../articulo/Edit/@items.IdArticulo"><span class="glyphicon glyphicon-edit"></span>&nbsp;Editar</a>
+                    <a href="../articulo/Delete/@items.IdArticulo"><span class="glyphicon glyphicon-trash"></span>&nbsp;Eliminar</a>
+                    <a href="../articulo/Details/@items.IdArticulo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Ver</a>
+                </th>
+            </tr>
+
+            }
+
+
+
+        </table>
+    
+    </div>
+
+
+</fielset>

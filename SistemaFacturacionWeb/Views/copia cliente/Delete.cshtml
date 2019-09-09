@@ -1,0 +1,72 @@
+﻿@model SistemaFacturacionWeb.Models.cliente
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>seguro desea Eliminar?</h3>
+<div>
+    <h4>cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CedulaCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CedulaCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DireccionCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DireccionCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaNacimientoCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaNacimientoCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefonoCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefonoCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailCliente)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    }
+</div>

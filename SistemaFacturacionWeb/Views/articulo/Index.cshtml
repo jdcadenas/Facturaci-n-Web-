@@ -1,0 +1,82 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.articulo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Nuevo</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo", "Create")
+</p>
+@using (Html.BeginForm("Buscar", "articulo", FormMethod.Get))
+{
+    <p>
+        Buscar Por Nombre: @Html.TextBox("NombreArticulo")
+
+
+
+        <input type="submit" value="Buscar" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdArticulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreArticulo)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.StockMinArticulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrecioPromedioArticulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CantidadArticulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.UnidadMedidaArticulo)
+        </th>
+        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    </tr>
+
+    -@foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdArticulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreArticulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockMinArticulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioPromedioArticulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadArticulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaVencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnidadMedidaArticulo)
+            </td>
+            <td>
+                <a href="articulo/Edit/@item.IdArticulo"><span class="glyphicon glyphicon-edit"></span>&nbsp;Editar</a>
+                <a href="articulo/Delete/@item.IdArticulo"><span class="glyphicon glyphicon-trash"></span>&nbsp;Eliminar</a>
+                <a href="articulo/Details/@item.IdArticulo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Ver</a>
+            </td>
+        </tr>
+    }
+
+</table>

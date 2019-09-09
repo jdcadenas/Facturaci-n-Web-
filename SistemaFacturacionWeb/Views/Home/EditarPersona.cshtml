@@ -1,0 +1,46 @@
+﻿@model  SistemaFacturacionWeb.Models.Persona
+
+@{
+    ViewBag.Title = "About";
+}
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditarPersona</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <p>
+                Código:
+                @Html.EditorFor(model => model.Codigo)
+            </p>
+            <p>
+                Nombre:
+                @Html.EditorFor(model => model.Nombre)
+            </p>
+            <p>
+                Peso:
+                @Html.EditorFor(model => model.Peso)
+            </p>
+            <p>
+                Trabaja?:
+                @Html.EditorFor(model => model.Trabaja)
+            </p>
+            <p>
+                Fecha de nacimiento:
+                @Html.EditorFor(model => model.FechaNacimiento)
+            </p>
+            <p>
+                <input type="submit" value="Confirmar" />
+            </p>
+        }
+    </div>
+</body>
+</html>

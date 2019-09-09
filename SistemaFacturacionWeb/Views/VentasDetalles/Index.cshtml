@@ -1,0 +1,385 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.VentasDetalles>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div class="panel-heading">
+    <h1>Ventas</h1>
+    <div class="row">
+        <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">Buscar Avanzada</button>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Articulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArticuloCodigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ventas.Cliente)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Articulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArticuloCodigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ventas.Cliente)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.OrderId }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.OrderId }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.OrderId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal fade" id="newOrderModal">
+    <div class="modal-dialog modal-lg" style=" width: 1000px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Facturas</h4>
+            </div>
+            <form id="NewOrderForm">
+                <iframe src="~/BusquedaDetallesFactura.aspx" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+
+            function addNewOrder() {
+                $("#newOrderModal").modal();
+            }
+
+            function addNewOrder2() {
+                $("#newOrderModal2").modal();
+            }
+
+            //funcionalidad de autompletado proveedor
+            $("#Cliente").autocomplete({
+                 source: function (request, response) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("ValidatorCliente", "Compras")",
+                        dataType: "json",
+                        data: { product: $("#Cliente").val() },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                $('#myBtn').css('visibility', 'hidden');
+                                response($.map(data, function (item) {
+                                    console.log(item);
+                                   /* $('#Cantidad').attr("max", item.CantidadArticulo);
+                                    $("#Cantidad").val(item.Cantidad);
+                                    $("#Precio").val(item.Precio);
+                                    */
+                                    $("#Direccion").val(item.DireccionCliente);
+                                    $("#Nombre").val(item.NombreCliente);
+
+                                    return {
+                                        label: item.NombreCliente,
+                                        value: item.CedulaCliente
+                                    };
+                                }));
+                            } else {
+                                response({ value: "no existe proveedores" });
+                                $('#myBtn').css('visibility', 'visible');
+                            }
+
+                        },
+                        error: function (xhr, status, error) {
+                            alert(error);
+                        }
+                    });
+                }
+            });
+
+            $("#Articulo").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Validator2","Compras")",
+                        dataType: "json",
+                        data: { product: $("#Articulo").val() },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                $('#myBtn').css('visibility', 'hidden');
+                                response($.map(data, function (item) {
+                                    console.log(item.CantidadArticulo);
+                                    //$('#Cantidad').attr("max", item.CantidadArticulo);
+                                  //  $("#Cantidad").val(item.CantidadArticulo);
+                                    //$('#Cantidad').attr('value', item.CantidadArticulo);
+                                    //PrecioPromedioArticulo
+                                    var Precio2 = item.PrecioPromedioArticulo.toString().replace(/\./g, ',');
+                                    $('#Precio').attr('value', item.PrecioPromedioArticulo);
+                                    $('#Cantidad').attr('value', item.CantidadArticulo);
+                                    //$('#Cant').attr('value', parseInt(item.CantidadArticulo)
+
+
+                                   // PrecioPromedioArticulo.toString().replace(/\,/g, '.');
+                                    //$("#Precio").val(x);
+                                    //$('#Precio').attr("max", item.PrecioPromedioArticulo);
+                                    //$('#Precio').attr('value', '987');
+
+
+                                    return {
+                                        label: item.Codigo + " : " + item.NombreArticulo,
+                                        value: item.Codigo,
+                                        precio: item.PrecioPromedioArticulo,
+                                        cantidad: item.CantidadArticulo
+                                    };
+                                }));
+                            } else {
+                                response({ value: "no existe articulos" });
+                                $('#myBtn').css('visibility', 'visible');
+                            }
+
+                        },
+                        error: function (xhr, status, error) {
+                            alert(error);
+                        }
+                    });
+                },
+
+                select: function (e, ui) {
+                    console.log("selected!");
+                    console.log(ui.item.cantidad);
+                    $('#Precio').attr('value', ui.item.precio);
+
+                    $('#Cantidad').attr('value', ui.item.cantidad);
+
+                }
+            });
+
+            //condigo de pureba pra validacion de usuarios
+            /*
+            $("#btnValidation").click(function () {
+                var product = $("#txtxtArticulo").val();
+                console.log(product);
+
+                var product = $("#txtxtArticulo").val();
+                var data = { product: product }
+
+                $.post(url, data).done(function (data) {
+                    $("#")
+                })
+
+
+            })
+
+            */
+            $("#addToList").click(function () {
+
+                $("#saveOrder").css("visibility", "visible");
+
+                var product = $("#Articulo").val();
+
+
+
+                var data = { product: product };
+
+
+                var url = "@Url.Action("Validator","Compras")";
+
+                $.post(url, data).done(function (data) {
+
+                    console.log(data[0].CantidadArticulo);
+                    var cant = $("#Cantidad").val();
+                    var cantbool = 0;
+
+                    if (data[0].CantidadArticulo > cant) {
+                        cantbool = 1
+
+                    }
+                    console.log(cantbool);
+                    if (data && cantbool) {
+                        $("#productValidation").html("articulo si existe");
+                        if ($.trim($("#Articulo").val()) == "" || $.trim($("#Precio").val()) == "" || $.trim($("#Cantidad").val()) == "") return;
+
+                        var Articulo = $("#Articulo").val(),
+                            Precio = $("#Precio").val(),
+                            Cantidad = $("#Cantidad").val(),
+
+                            detailsTableBody = $("#detailsTable tbody");
+                        var precios = Precio * Cantidad
+                        var total2 = precios.toString().replace(/\,/g, '.');
+
+                        var productItem = '<tr><td>' + Articulo + '</td><td>' + Cantidad + '</td><td>' + Precio + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                        detailsTableBody.append(productItem);
+                        clearItem();
+                    }
+                    else {
+                        $("#productValidation").html("Cantidad mayor a stock producto");
+
+
+
+                    }
+
+                });
+
+            });
+            //fianl de codigo para validacon usuario
+            //Add Multipl
+           /* $("#addToList").click(function (e) {
+                 e.preventDefault();
+
+                if ($.trim($("#Articulo").val()) == "" || $.trim($("#Precio").val()) == "" || $.trim($("#Cantidad").val()) == "") return;
+
+                var Articulo = $("#Articulo").val(),
+                    Precio = $("#Precio").val(),
+                    Cantidad = $("#Cantidad").val(),
+
+                    detailsTableBody = $("#detailsTable tbody");
+                var precios = Precio * Cantidad
+                var total2 = precios.toString().replace(/\,/g, '.');
+
+                var productItem = '<tr><td>' + Articulo + '</td><td>' + Cantidad + '</td><td>' + Precio + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                detailsTableBody.append(productItem);
+                clearItem();
+            });
+            */
+            //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+            function clearItem() {
+
+                $("#Articulo").val('');
+                $("#Cantidad").val('');
+                $("#Precio").val('');
+            }
+            // After Add A New Order In The List, If You Want, You Can Remove It.
+            $(document).on('click', 'a.deleteItem', function (e) {
+                e.preventDefault();
+                var $self = $(this);
+                if ($(this).attr('data-itemId') == "0") {
+                    $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                        $(this).remove();
+                    });
+                }
+            });
+            //After Click Save Button Pass All Data View To Controller For Save Database
+            function saveOrder(data) {
+                $("#Cliente").val('');
+                $("#Factura").val('');
+                return $.ajax({
+
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: "/Ventas/SaveOrder",
+                    data: data,
+                    success: function (result) {
+                        alert("Operacion Exitosa");
+
+                        //var str = "Hello world!";
+                        var res = result.substring(0, 36);
+                        var res2 = result.substring(36, 50);
+                        //alert(result);
+                        //url: "/Ventas/Imprimir",
+                        location.href = "/Ventas/Imprimir?cod=" + res + "&Cedula=" + res2 + "";
+                       // window.open("/Ventas/Imprimir?cod=" + res + "&Cedula=" + res2 + "", "miVentana", "width=380, height=500, top=85, left=50", true);
+                        $("#Cliente").val('');
+                        $("#Factura").val('');
+                        //location.reload();
+                    },
+                    error: function () {
+                        alert("Error!")
+                    }
+                });
+            }
+            //Collect Multiple Order List For Pass To Controller
+            $("#saveOrder").click(function (e) {
+                e.preventDefault();
+
+                if ($("#Cliente").val() != '' && $('#Factura').val() != '') {
+                    var orderArr = [];
+                    orderArr.length = 0;
+
+                    $.each($("#detailsTable tbody tr"), function () {
+                        orderArr.push({
+                            Articulo: $(this).find('td:eq(0)').html(),
+                            Cantidad: $(this).find('td:eq(1)').html(),
+                            Precio: $(this).find('td:eq(2)').html(),
+                            Total: $(this).find('td:eq(3)').html()
+                        });
+                    });
+
+
+                    var data = JSON.stringify({
+                        Cliente: $("#Cliente").val(),
+                        Factura: $("#Factura").val(),
+                        order: orderArr
+                    });
+
+                    $.when(saveOrder(data)).then(function (response) {
+                        console.log(response);
+                    }).fail(function (err) {
+                        console.log(err);
+                    });
+                } else {
+                    $("#validatoinEmpyData").text('se necesita tener todos los campos llenos');
+                    console.log('se necesita tener todos los campos llenos');
+                }
+            });
+    </script>
+}
+
+<script>
+    $(document).ready(function () {
+        //Examples of how to assign the ColorBox event to elements
+        $(".inline").colorbox({ inline: true, width: "50%" });
+        $(".callbacks").colorbox({
+            onOpen: function () { alert('onOpen: colorbox is about to open'); },
+            onLoad: function () { alert('onLoad: colorbox has started to load the targeted content'); },
+            onComplete: function () { alert('onComplete: colorbox has displayed the loaded content'); },
+            onCleanup: function () { alert('onCleanup: colorbox has begun the close process'); },
+            onClosed: function () { alert('onClosed: colorbox has completely closed'); }
+        });
+
+        //Example of preserving a JavaScript event for inline calls.
+        $("#click").click(function () {
+            $('#click').css({ "background-color": "#f00", "color": "#fff", "cursor": "inherit" }).text("Open this window again and this message will still be here.");
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,66 @@
+﻿@model SistemaFacturacionWeb.Models.VentasDetalles
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detailles</h2>
+
+<div>
+    <h4>Ventas Detalles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Articulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Articulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticuloCodigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArticuloCodigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ventas.Cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ventas.Cliente)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.OrderId }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

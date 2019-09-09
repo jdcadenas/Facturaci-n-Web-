@@ -1,10 +1,13 @@
 ﻿@model SistemaFacturacionWeb.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Registrarse";
+    ViewBag.Title = "Registrar Usuario";
 }
 
 <h2>@ViewBag.Title.</h2>
+<div class="row">
+    <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">Asignar rol a Usuario</button>
 
+</div>
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -36,6 +39,128 @@
     </div>
 }
 
+
+
+@*Desing Bootdtrap Modal With Order Form*@
+
+<div class="modal fade" id="newOrderModal">
+    <div class="modal-dialog modal-lg" style=" width: 1000px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Asignacion de Rol Administrador</h4>
+            </div>
+            <form id="NewOrderForm">
+                <iframe src="~/rolesUsers.aspx" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+        function addNewOrder() {
+            $("#newOrderModal").modal();
+        }
+
+        //Add Multiple Order.
+        $("#addToList").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#Articulo").val()) == "" || $.trim($("#Precio").val()) == "" || $.trim($("#Cantidad").val()) == "") return;
+
+            var Articulo = $("#Articulo").val(),
+                Precio = $("#Precio").val(),
+                Cantidad = $("#Cantidad").val(),
+                detailsTableBody = $("#detailsTable tbody");
+
+            var productItem = '<tr><td>' + Articulo + '</td><td>' + Cantidad + '</td><td>' + Precio + '</td><td>' + (parseFloat(Precio) * parseInt(Cantidad)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+            detailsTableBody.append(productItem);
+            clearItem();
+        });
+        //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+        function clearItem() {
+
+            $("#Articulo").val('');
+            $("#Cantidad").val('');
+        }
+        // After Add A New Order In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(data) {
+            $("#Cliente").val('');
+            $("#Factura").val('');
+            return $.ajax({
+
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Presupuesto/SaveOrder",
+                data: data,
+                success: function (result) {
+                    alert("Operacion Exitosa");
+
+
+                    //alert(result);
+                    //url: "/Ventas/Imprimir",
+                    location.href = "/Presupuesto/Imprimir?cod=" + result;
+                    location.reload();
+
+
+
+
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+        //Collect Multiple Order List For Pass To Controller
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+
+            var orderArr = [];
+            orderArr.length = 0;
+
+            $.each($("#detailsTable tbody tr"), function () {
+                orderArr.push({
+                    Articulo: $(this).find('td:eq(0)').html(),
+                    Cantidad: $(this).find('td:eq(1)').html(),
+                    Precio: $(this).find('td:eq(2)').html(),
+                    Total: $(this).find('td:eq(3)').html()
+                });
+            });
+
+
+            var data = JSON.stringify({
+                Cliente: $("#Cliente").val(),
+                Factura: $("#Factura").val(),
+                order: orderArr
+            });
+
+            $.when(saveOrder(data)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+
+    </script>
 }

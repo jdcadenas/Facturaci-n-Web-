@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -15,17 +16,19 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SistemaFacturacionWeb</RootNamespace>
     <AssemblyName>SistemaFacturacionWeb</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,22 +49,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="itextsharp, Version=5.5.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.4-rc\lib\net45\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -103,6 +116,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -200,40 +214,502 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\articuloController.cs" />
+    <Compile Include="Controllers\bodegasController.cs" />
+    <Compile Include="Controllers\clientesController.cs" />
+    <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\impuestosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\modopagoController.cs" />
+    <Compile Include="Controllers\PdfController.cs" />
+    <Compile Include="Controllers\PersonaController.cs" />
+    <Compile Include="Controllers\PresupuestoController.cs" />
+    <Compile Include="Controllers\proveedorController.cs" />
+    <Compile Include="Controllers\MantenimientoPersona.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\sucursalesController.cs" />
+    <Compile Include="Controllers\tipodocumentoesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\articulo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bitacora.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bodega.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cliente.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Compras.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ComprasDetalles.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ComprasQ_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\detallesempleado.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\factura.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FacturacionHoy_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FacturacionQ1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FacturacionQ_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Facturacion_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\impuesto.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MantenimientoPersona.cs" />
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model2.cs" />
+    <Compile Include="Models\modopago.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Persona.cs" />
+    <Compile Include="Models\Presupuesto.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PresupuestoDetalles.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PresupuestoQ_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\proveedor.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockMinQ_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sucursal.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tipodocumento.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ventas.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VentasDetalles.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReporteStockMin.aspx.cs">
+      <DependentUpon>ReporteStockMin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReporteStockMin.aspx.designer.cs">
+      <DependentUpon>ReporteStockMin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Compras.cs">
+      <DependentUpon>Compras.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\CuentasporCobrar.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CuentasporCobrar.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Presupuesto.cs">
+      <DependentUpon>Presupuesto.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\Factura.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Factura.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Factura2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Factura2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\ListadoClientes.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListadoClientes.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\ListaProductos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListaProductos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\StockMinQ.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockMinQ.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\VentasLista.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VentasLista.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rolesUsers.aspx.cs">
+      <DependentUpon>rolesUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="rolesUsers.aspx.designer.cs">
+      <DependentUpon>rolesUsers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Site1.Master.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site1.Master.designer.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Database1.mdf" />
+    <Content Include="App_Data\Database1_log.ldf">
+      <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
+    <Content Include="Assets\Js\bootstrap.js" />
+    <Content Include="Assets\Js\bootstrap.min.js" />
+    <None Include="Assets\Js\jquery-3.4.1.intellisense.js" />
+    <Content Include="Assets\Js\jquery-3.4.1.js" />
+    <Content Include="Assets\Js\jquery-3.4.1.min.js" />
+    <Content Include="Assets\Js\jquery-3.4.1.slim.js" />
+    <Content Include="Assets\Js\jquery-3.4.1.slim.min.js" />
+    <Content Include="Assets\Js\jquery.unobtrusive-ajax.js" />
+    <Content Include="Assets\Js\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Assets\Js\jquery.validate-vsdoc.js" />
+    <Content Include="Assets\Js\jquery.validate.js" />
+    <Content Include="Assets\Js\jquery.validate.min.js" />
+    <Content Include="Assets\Js\jquery.validate.unobtrusive.js" />
+    <Content Include="Assets\Js\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Assets\Js\modernizr-2.6.2.js" />
+    <Content Include="Assets\Js\respond.js" />
+    <Content Include="Assets\Js\respond.min.js" />
+    <Content Include="ayuda.html" />
+    <Content Include="colorbox.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\themes\accordion.css" />
+    <Content Include="Content\themes\all.css" />
+    <Content Include="Content\themes\autocomplete.css" />
+    <Content Include="Content\themes\base.css" />
+    <Content Include="Content\themes\button.css" />
+    <Content Include="Content\themes\core.css" />
+    <Content Include="Content\themes\datepicker.css" />
+    <Content Include="Content\themes\dialog.css" />
+    <Content Include="Content\themes\draggable.css" />
+    <Content Include="Content\themes\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\jquery-ui.css" />
+    <Content Include="Content\themes\jquery-ui.min.css" />
+    <Content Include="Content\themes\menu.css" />
+    <Content Include="Content\themes\progressbar.css" />
+    <Content Include="Content\themes\resizable.css" />
+    <Content Include="Content\themes\selectable.css" />
+    <Content Include="Content\themes\selectmenu.css" />
+    <Content Include="Content\themes\slider.css" />
+    <Content Include="Content\themes\sortable.css" />
+    <Content Include="Content\themes\spinner.css" />
+    <Content Include="Content\themes\tabs.css" />
+    <Content Include="Content\themes\theme.css" />
+    <Content Include="Content\themes\tooltip.css" />
+    <Content Include="EjemploPdf.dll" />
+    <Content Include="EjemploPdf.pdb" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\border.png" />
+    <Content Include="images\border1.png" />
+    <Content Include="images\border2.png" />
+    <Content Include="images\controls.png" />
+    <Content Include="images\ie6\borderBottomCenter.png" />
+    <Content Include="images\ie6\borderBottomLeft.png" />
+    <Content Include="images\ie6\borderBottomRight.png" />
+    <Content Include="images\ie6\borderMiddleLeft.png" />
+    <Content Include="images\ie6\borderMiddleRight.png" />
+    <Content Include="images\ie6\borderTopCenter.png" />
+    <Content Include="images\ie6\borderTopLeft.png" />
+    <Content Include="images\ie6\borderTopRight.png" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\loading_background.png" />
+    <Content Include="images\overlay.png" />
+    <Content Include="images\sistemas inventarios.jpg" />
+    <Content Include="index.html" />
+    <Content Include="itextsharp.dll" />
+    <Content Include="jquery.colorbox.js" />
+    <Content Include="jquery.min.js" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="ReporteStockMin.aspx" />
+    <Content Include="rolesUsers.aspx" />
+    <Content Include="Assets\Js\jquery-3.4.1.min.map" />
+    <Content Include="Assets\Js\jquery-3.4.1.slim.min.map" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Views\Pdf\index.php" />
+    <Content Include="Views\Pdf\aspirante.php" />
+    <Content Include="Views\Pdf\aspirante2.php" />
+    <Content Include="Views\Pdf\banner.jpg" />
+    <Content Include="Views\Pdf\banner.png" />
+    <Content Include="Views\Pdf\clientes.php" />
+    <Content Include="Views\Pdf\empleados.php" />
+    <Content Include="Views\Pdf\fpdf\changelog.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\acceptpagebreak.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\addfont.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\addlink.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\addpage.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\aliasnbpages.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\cell.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\close.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\error.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\footer.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\getpageheight.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\getpagewidth.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\getstringwidth.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\getx.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\gety.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\header.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\image.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\index.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\line.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\link.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\ln.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\multicell.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\output.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\pageno.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\rect.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setauthor.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setautopagebreak.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setcompression.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setcreator.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setdisplaymode.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setdrawcolor.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setfillcolor.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setfont.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setfontsize.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setkeywords.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setleftmargin.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setlinewidth.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setlink.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setmargins.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setrightmargin.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setsubject.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\settextcolor.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\settitle.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\settopmargin.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setx.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\setxy.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\sety.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\text.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\write.htm" />
+    <Content Include="Views\Pdf\fpdf\doc\__construct.htm" />
+    <Content Include="Views\Pdf\fpdf\FAQ.htm" />
+    <Content Include="Views\Pdf\fpdf\font\courier.php" />
+    <Content Include="Views\Pdf\fpdf\font\courierb.php" />
+    <Content Include="Views\Pdf\fpdf\font\courierbi.php" />
+    <Content Include="Views\Pdf\fpdf\font\courieri.php" />
+    <Content Include="Views\Pdf\fpdf\font\helvetica.php" />
+    <Content Include="Views\Pdf\fpdf\font\helveticab.php" />
+    <Content Include="Views\Pdf\fpdf\font\helveticabi.php" />
+    <Content Include="Views\Pdf\fpdf\font\helveticai.php" />
+    <Content Include="Views\Pdf\fpdf\font\symbol.php" />
+    <Content Include="Views\Pdf\fpdf\font\times.php" />
+    <Content Include="Views\Pdf\fpdf\font\timesb.php" />
+    <Content Include="Views\Pdf\fpdf\font\timesbi.php" />
+    <Content Include="Views\Pdf\fpdf\font\timesi.php" />
+    <Content Include="Views\Pdf\fpdf\font\zapfdingbats.php" />
+    <Content Include="Views\Pdf\fpdf\fpdf.css" />
+    <Content Include="Views\Pdf\fpdf\fpdf.php" />
+    <Content Include="Views\Pdf\fpdf\install.txt" />
+    <Content Include="Views\Pdf\fpdf\license.txt" />
+    <Content Include="Views\Pdf\fpdf\makefont\makefont.php" />
+    <Content Include="Views\Pdf\fpdf\makefont\ttfparser.php" />
+    <Content Include="Views\Pdf\fpdf\tutorial\20k_c1.txt" />
+    <Content Include="Views\Pdf\fpdf\tutorial\20k_c2.txt" />
+    <Content Include="Views\Pdf\fpdf\tutorial\calligra.php" />
+    <Content Include="Views\Pdf\fpdf\tutorial\index.htm" />
+    <Content Include="Views\Pdf\fpdf\tutorial\logo.png" />
+    <Content Include="Views\Pdf\fpdf\tutorial\makefont.php" />
+    <Content Include="Views\Pdf\fpdf\tutorial\paises.txt" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto1.htm" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto1.php" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto2.htm" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto2.php" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto3.htm" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto3.php" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto4.htm" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto4.php" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto5.htm" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto5.php" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto6.htm" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto6.php" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto7.htm" />
+    <Content Include="Views\Pdf\fpdf\tutorial\tuto7.php" />
+    <Content Include="Views\Pdf\informe_diario.php" />
+    <Content Include="Views\Pdf\novedades.php" />
+    <Content Include="Views\Pdf\orden_mantenimiento.php" />
+    <Content Include="Views\Pdf\orden_semanal.php" />
+    <Content Include="Views\Pdf\plantilla.php" />
+    <Content Include="Views\Pdf\plantilla2.php" />
+    <Content Include="Views\Pdf\plantilla3.php" />
+    <Content Include="Views\Pdf\plantilla4.php" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Views\Pdf\fpdf\makefont\cp1250.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\cp1251.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\cp1252.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\cp1253.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\cp1254.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\cp1255.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\cp1257.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\cp1258.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\cp874.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\iso-8859-1.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\iso-8859-11.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\iso-8859-15.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\iso-8859-16.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\iso-8859-2.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\iso-8859-4.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\iso-8859-5.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\iso-8859-7.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\iso-8859-9.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\koi8-r.map" />
+    <Content Include="Views\Pdf\fpdf\makefont\koi8-u.map" />
+    <Content Include="Views\Pdf\fpdf\tutorial\calligra.ttf" />
+    <Content Include="Views\Pdf\fpdf\tutorial\calligra.z" />
+    <Content Include="EjemploPdf.dll.config" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="WebForm1.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -268,9 +744,89 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\tipodocumentoes\Create.cshtml" />
+    <Content Include="Views\tipodocumentoes\Delete.cshtml" />
+    <Content Include="Views\tipodocumentoes\Details.cshtml" />
+    <Content Include="Views\tipodocumentoes\Edit.cshtml" />
+    <Content Include="Views\tipodocumentoes\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\bodegas\Create.cshtml" />
+    <Content Include="Views\bodegas\Delete.cshtml" />
+    <Content Include="Views\bodegas\Details.cshtml" />
+    <Content Include="Views\bodegas\Edit.cshtml" />
+    <Content Include="Views\bodegas\Index.cshtml" />
+    <Content Include="Views\clientes\Create.cshtml" />
+    <Content Include="Views\clientes\Delete.cshtml" />
+    <Content Include="Views\clientes\Details.cshtml" />
+    <Content Include="Views\clientes\Edit.cshtml" />
+    <Content Include="Views\clientes\Index.cshtml" />
+    <Content Include="Views\impuestos\Create.cshtml" />
+    <Content Include="Views\impuestos\Delete.cshtml" />
+    <Content Include="Views\impuestos\Details.cshtml" />
+    <Content Include="Views\impuestos\Edit.cshtml" />
+    <Content Include="Views\impuestos\Index.cshtml" />
+    <Content Include="Views\modopago\Create.cshtml" />
+    <Content Include="Views\modopago\Delete.cshtml" />
+    <Content Include="Views\modopago\Details.cshtml" />
+    <Content Include="Views\modopago\Edit.cshtml" />
+    <Content Include="Views\modopago\Index.cshtml" />
+    <Content Include="Views\proveedor\Create.cshtml" />
+    <Content Include="Views\proveedor\Delete.cshtml" />
+    <Content Include="Views\proveedor\Details.cshtml" />
+    <Content Include="Views\proveedor\Edit.cshtml" />
+    <Content Include="Views\proveedor\Index.cshtml" />
+    <Content Include="Views\sucursales\Create.cshtml" />
+    <Content Include="Views\sucursales\Delete.cshtml" />
+    <Content Include="Views\sucursales\Details.cshtml" />
+    <Content Include="Views\sucursales\Edit.cshtml" />
+    <Content Include="Views\sucursales\Index.cshtml" />
+    <Content Include="Views\bodegas\error.cshtml" />
+    <Content Include="Views\clientes\error.cshtml" />
+    <Content Include="Views\impuestos\error.cshtml" />
+    <Content Include="Views\modopago\error.cshtml" />
+    <Content Include="Views\proveedor\error.cshtml" />
+    <Content Include="Views\Roles\error.cshtml" />
+    <Content Include="Views\sucursales\error.cshtml" />
+    <Content Include="Views\tipodocumentoes\error.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Prueba\Index.cshtml" />
+    <Content Include="Views\Home\EditarPersona.cshtml" />
+    <Content Include="Site1.Master" />
+    <Content Include="Views\Presupuesto\Create.cshtml" />
+    <Content Include="Views\Presupuesto\Delete.cshtml" />
+    <Content Include="Views\Presupuesto\Details.cshtml" />
+    <Content Include="Views\Presupuesto\Edit.cshtml" />
+    <Content Include="Views\Presupuesto\Index.cshtml" />
+    <Content Include="Views\Compras\Create.cshtml" />
+    <Content Include="Views\Compras\Delete.cshtml" />
+    <Content Include="Views\Compras\Details.cshtml" />
+    <Content Include="Views\Compras\Edit.cshtml" />
+    <Content Include="Views\Compras\Index.cshtml" />
+    <Content Include="Views\Ventas\Create.cshtml" />
+    <Content Include="Views\Ventas\Delete.cshtml" />
+    <Content Include="Views\Ventas\Details.cshtml" />
+    <Content Include="Views\Ventas\Edit.cshtml" />
+    <Content Include="Views\Ventas\Index.cshtml" />
+    <Content Include="Views\articulo\Create.cshtml" />
+    <Content Include="Views\articulo\Delete.cshtml" />
+    <Content Include="Views\articulo\Details.cshtml" />
+    <Content Include="Views\articulo\Edit.cshtml" />
+    <Content Include="Views\articulo\Index.cshtml" />
+    <Content Include="Views\articulo\Buscar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="pdf\" />
+    <Folder Include="Views\Pdf\fpdf\images\" />
+    <Folder Include="Views\Pdf\images\" />
+    <Folder Include="Views\Persona\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -283,13 +839,56 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reportes\Compras.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Compras.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\CuentasporCobrar.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CuentasporCobrar.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Presupuesto.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Presupuesto.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Factura.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Factura.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Factura2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Factura2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\ListadoClientes.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ListadoClientes.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\ListaProductos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ListaProductos.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\StockMinQ.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>StockMinQ.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\VentasLista.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>VentasLista.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

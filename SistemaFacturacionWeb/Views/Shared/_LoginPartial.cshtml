@@ -1,22 +1,86 @@
-﻿@using Microsoft.AspNet.Identity
+﻿
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
 @if (Request.IsAuthenticated)
 {
+    var id = User.Identity.Name;
+    var NombreUsuario = User.Identity.GetUserId();
+
+    
+
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
-    </ul>
+
+
+        <ul class="nav navbar-nav">
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Operaciones
+                    <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Compras", "Index", "Compras")</li>
+                    <li>@Html.ActionLink("Presupuesto", "Index", "Presupuesto")</li>
+                    <li>@Html.ActionLink("Ventas", "Index", "Ventas")</li>
+
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Mantenimiento
+                    <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Impuestos", "index", "impuestos")</li>
+                    <li>@Html.ActionLink("Usuario", "Register", "Account")</li>
+
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Stock
+                    <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Articulos", "index", "articulo")</li>
+
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Reportes
+                    <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Listdo de Articulos", "../articulo/Imprimir", "articulo")</li>
+                    <li>@Html.ActionLink("Listdo de Articulos en Stock Minimo", "../articulo/ImprimirstockMin", "articuloes")</li>
+                    <li>@Html.ActionLink("Articulos Fecha de Caducidad", "index", "articulo")</li>
+                    <li>@Html.ActionLink("Ventas de Hoy", "../Ventas/ImprimirVentasLista", "Ventas")</li>
+                </ul>
+            </li>
+            <li>@Html.ActionLink("Clientes", "index", "clientes")</li>
+            <li>@Html.ActionLink("Proveedores", "index", "proveedor")</li>
+            <li>
+                @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+        </ul>
+
+
+        <ul class="nav navbar-nav navbar-right"></ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

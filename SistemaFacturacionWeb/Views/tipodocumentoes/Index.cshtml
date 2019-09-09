@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.tipodocumento>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoEncabezado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TituloEncabezado)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.sucursal.NombreSucursal)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoEncabezado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TituloEncabezado)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.sucursal.NombreSucursal)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdEncabezado }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdEncabezado }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdEncabezado })
+        </td>
+    </tr>
+}
+
+</table>

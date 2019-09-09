@@ -1,0 +1,261 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.Compras>
+@*Desing Bootdtrap Modal With Order Form*@
+
+<script type="text/javascript">
+    function validar(e) {
+
+
+
+        tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla == 8) return true; //Tecla de retroceso (para poder borrar)
+        if (tecla == 44) return true; //Coma ( En este caso para diferenciar los decimales )
+        if (tecla == 48) return true;
+        if (tecla == 49) return true;
+        if (tecla == 50) return true;
+        if (tecla == 51) return true;
+        if (tecla == 52) return true;
+        if (tecla == 53) return true;
+        if (tecla == 54) return true;
+        if (tecla == 55) return true;
+        if (tecla == 56) return true;
+        if (tecla == 57) return true;
+        patron = /1/; //ver nota
+        te = String.fromCharCode(tecla);
+        return patron.test(te);
+    }
+</script>
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <h1>Compras</h1>
+        <div class="row">
+            <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">Buscar Articulo</button>
+
+        </div>
+    </div>
+    <form id="NewOrderForm">
+        <div class="modal-body2">
+            @*Detalles de Clientes*@
+            <h3 style="color:#ff6347">Detalles del Proveedor</h3>
+            <hr />
+
+            <div class="form-horizontal">
+                <input type="hidden" id="CustomerId" />
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        Proveedor
+                    </label>
+                    <div class="col-md-4">
+                        <input type="text" id="Cliente" name="Cliente" placeholder="Cliente" class="form-control" />
+                    </div>
+                    <label class="control-label col-md-2">
+                        Factura
+                    </label>
+                    <div class="col-md-4">
+                        <input type="text" id="Factura" name="Factura" onKeyPress="return validar(event)" placeholder="Nยบ Factura" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            @*Order Details*@
+            <h3 style="margin-top:10px;color:#ff6347">Detalles del Pedido</h3>
+            <hr />
+            <div class="form-horizontal">
+                <input type="hidden" id="OrderId" />
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+
+                        Codigo del Articulo
+                    </label>
+
+                    <div class="col-md-4">
+                        <input type="text" id="Articulo" name="Articulo" placeholder="Articulo" class="form-control" />
+                    </div>
+                    <label class="control-label col-md-2">
+                        Precio
+                    </label>
+                    <div class="col-md-4">
+                        <input type="text" id="Precio" name="Precio" placeholder="Precio" onKeyPress="return validar(event)" class="form-control" value=""  />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        Cantidad
+                    </label>
+                    <div class="col-md-4">
+                        <input type="text" onKeyPress="return validar(event)" id="Cantidad" name="Cantidad" placeholder="Cantidad" class="form-control" />
+                    </div>
+                    <div class="col-md-2 col-lg-offset-4">
+                        <a id="addToList2" class="btn btn-primary">Cargar</a>
+                        <a id="addToList" class="btn btn-primary">Agregar</a>
+                    </div>
+                </div>
+
+                <table id="detailsTable" class="table">
+                    <thead>
+                        <tr>
+                            <th style="width:30%">Producto</th>
+                            <th style="width:15%">Cantidad</th>
+                            <th style="width:20%">Precio</th>
+                            <th style="width:10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="saveOrder" type="submit" class="btn btn-danger">Guardar</button>
+        </div>
+    </form>
+
+
+
+    @*Desing Bootdtrap Modal With Order Form*@
+
+    <div class="modal fade" id="newOrderModal">
+        <div class="modal-dialog modal-lg" style=" width: 900px !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>Articulos</h4>
+                </div>
+                <form id="NewOrderForm">
+                    <iframe src="~/WebForm1.aspx" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    @section scripts{
+        <script>
+
+            function addNewOrder() {
+                $("#newOrderModal").modal();
+            }
+
+            //Add Multiple Order.
+            $("#addToList").click(function (e) {
+                e.preventDefault();
+
+                if ($.trim($("#Articulo").val()) == "" || $.trim($("#Precio").val()) == "" || $.trim($("#Cantidad").val()) == "") return;
+
+                var Articulo = $("#Articulo").val(),
+                    Precio = $("#Precio").val(),
+                    Cantidad = $("#Cantidad").val(),
+
+                    detailsTableBody = $("#detailsTable tbody");
+                var precios = Precio * Cantidad
+                var total2 = precios.toString().replace(/\,/g, '.');
+
+                var productItem = '<tr><td>' + Articulo + '</td><td>' + Cantidad + '</td><td>' + Precio + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                detailsTableBody.append(productItem);
+                clearItem();
+            });
+            //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+            function clearItem() {
+
+                $("#Articulo").val('');
+                $("#Cantidad").val('');
+                $("#Precio").val('');
+            }
+            // After Add A New Order In The List, If You Want, You Can Remove It.
+            $(document).on('click', 'a.deleteItem', function (e) {
+                e.preventDefault();
+                var $self = $(this);
+                if ($(this).attr('data-itemId') == "0") {
+                    $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                        $(this).remove();
+                    });
+                }
+            });
+            //After Click Save Button Pass All Data View To Controller For Save Database
+            function saveOrder(data) {
+                $("#Cliente").val('');
+                $("#Factura").val('');
+                return $.ajax({
+
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: "/Compras/SaveOrder",
+                    data: data,
+                    success: function (result) {
+                        alert("Operacion Exitosa");
+                        
+
+                        alert(result);
+                        //url: "/Ventas/Imprimir",
+                        location.href = "/Compras/Imprimir?cod=" + result;
+                        //location.reload();
+                    },
+                    error: function () {
+                        alert("Error!")
+                    }
+                });
+            }
+            //Collect Multiple Order List For Pass To Controller
+            $("#saveOrder").click(function (e) {
+                e.preventDefault();
+
+                var orderArr = [];
+                orderArr.length = 0;
+
+                $.each($("#detailsTable tbody tr"), function () {
+                    orderArr.push({
+                        Articulo: $(this).find('td:eq(0)').html(),
+                        Cantidad: $(this).find('td:eq(1)').html(),
+                        Precio: $(this).find('td:eq(2)').html(),
+                        Total: $(this).find('td:eq(3)').html()
+                    });
+                });
+
+
+                var data = JSON.stringify({
+                    Cliente: $("#Cliente").val(),
+                    Factura: $("#Factura").val(),
+                    order: orderArr
+                });
+
+                $.when(saveOrder(data)).then(function (response) {
+                    console.log(response);
+                }).fail(function (err) {
+                    console.log(err);
+                });
+            });
+        </script>
+    }
+
+    <script>
+        $(document).ready(function () {
+            //Examples of how to assign the ColorBox event to elements
+            $(".inline").colorbox({ inline: true, width: "50%" });
+            $(".callbacks").colorbox({
+                onOpen: function () { alert('onOpen: colorbox is about to open'); },
+                onLoad: function () { alert('onLoad: colorbox has started to load the targeted content'); },
+                onComplete: function () { alert('onComplete: colorbox has displayed the loaded content'); },
+                onCleanup: function () { alert('onCleanup: colorbox has begun the close process'); },
+                onClosed: function () { alert('onClosed: colorbox has completely closed'); }
+            });
+
+            //Example of preserving a JavaScript event for inline calls.
+            $("#click").click(function () {
+                $('#click').css({ "background-color": "#f00", "color": "#fff", "cursor": "inherit" }).text("Open this window again and this message will still be here.");
+                return false;
+            });
+        });
+    </script>
+
+
+</div>

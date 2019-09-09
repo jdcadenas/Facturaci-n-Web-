@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.proveedor>
+
+@{
+    ViewBag.Title = "Proveedor";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RazonSocialProveedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RifProveedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelefonoProveedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DireccionProveedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DetallesProveedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreContactoProveedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SitioWebProveedor)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RazonSocialProveedor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RifProveedor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelefonoProveedor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DireccionProveedor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DetallesProveedor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreContactoProveedor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SitioWebProveedor)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdProveedor }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.IdProveedor }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdProveedor })
+        </td>
+    </tr>
+}
+
+</table>

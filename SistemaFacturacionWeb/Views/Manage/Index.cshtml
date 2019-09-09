@@ -4,8 +4,9 @@
 }
 
 <h2>@ViewBag.Title.</h2>
+@using Microsoft.AspNet.Identity
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+    <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <h4>Cambiar la configuración de la cuenta</h4>
     <hr />
@@ -26,17 +27,17 @@
         <dt>Inicios de sesión externos:</dt>
         <dd>
             @Model.Logins.Count [
-            @Html.ActionLink("Administrar", "ManageLogins") ]
+            @Html.ActionLink("Administrar Mis Datos de Perfil", "../Users/Edit/" + User.Identity.GetUserId()) ]
         </dd>
         @*
             Los números de teléfono se pueden usar como una segunda fase de comprobación en un sistema de autenticación en dos fases.
-             
+
              Consulte <a href="https://go.microsoft.com/fwlink/?LinkId=403804">este artículo</a>
                 para obtener detalles sobre cómo configurar esta aplicación ASP.NET para que sea compatible con la autenticación en dos fases mediante SMS.
-             
+
              Quite la marca de comentario de los bloques siguientes después de configurar la autenticación en dos fases.
         *@
-        @*  
+        @*
             <dt>Número de teléfono:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None")

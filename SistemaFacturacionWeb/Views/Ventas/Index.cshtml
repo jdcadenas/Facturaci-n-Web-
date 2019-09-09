@@ -1,0 +1,29 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.Ventas>
+
+@*Desing Bootdtrap Modal With Order Form*@
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Index</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <div>
+        <label id="lbl">
+            <input type="button"  onclick="BtnClick" value="cliqueame">
+        </label>
+    </div>
+</body>
+
+</html>
+<script>
+
+  
+
+    function BtnClick() {
+        $("#lbl").text("i am add from jquery");
+
+    }
+
+</script>

@@ -1,0 +1,43 @@
+﻿@model SistemaFacturacionWeb.Models.tipodocumento
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tipo de documento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoEncabezado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoEncabezado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TituloEncabezado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TituloEncabezado)
+        </dd>
+
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.sucursal.NombreSucursal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sucursal.NombreSucursal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdEncabezado }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

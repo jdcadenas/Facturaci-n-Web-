@@ -1,0 +1,90 @@
+﻿@model SistemaFacturacionWeb.Models.articulo
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>articulo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreArticulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreArticulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescripcionArticulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescripcionArticulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockMinArticulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockMinArticulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockMaxArticulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockMaxArticulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecioPromedioArticulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecioPromedioArticulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadArticulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadArticulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaVencimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnidadMedidaArticulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnidadMedidaArticulo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdArticulo }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

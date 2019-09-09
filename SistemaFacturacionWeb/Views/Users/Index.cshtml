@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.AspNetUsers>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.DireccionUser)
+        </th>
+
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+
+        <th>
+            @Html.DisplayFor(modelItem => item.NombreUser)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.Email)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </th>
+
+        <th>
+            @Html.DisplayFor(modelItem => item.DireccionUser)
+        </th>
+        
+        <td>
+            @Html.ActionLink("Details", "Detalles", new { id = item.Id }) 
+        </td>
+    </tr>
+    }
+
+</table>
