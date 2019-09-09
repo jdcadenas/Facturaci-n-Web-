@@ -89,9 +89,9 @@ namespace SistemaFacturacionWeb.Controllers
 
 
         // GET: articulo/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id=0)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -127,9 +127,9 @@ namespace SistemaFacturacionWeb.Controllers
         }
 
         // GET: articulo/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id=0)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -158,9 +158,9 @@ namespace SistemaFacturacionWeb.Controllers
         }
 
         // GET: articulo/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id=0)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
